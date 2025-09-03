@@ -1,24 +1,26 @@
 from pyfiglet import Figlet
 import sys
+import random
 
 def main():
+    figlet = Figlet()
+    font_list = figlet.getFonts()
 
-    # get the font from the command line arg
     if len(sys.argv) == 2:
-        f=sys.argv[1]
-        print(f"font={f}")
+        sys.exit("either call with zero parameters for random font, or 2 parameters like -f slant to set font")
+    if len(sys.argv) == 3:
+        if sys.argv[1] == "-f" or sys.argv[1] == "-font":
+            f=sys.argv[2]
+            if f not in font_list:
+                sys.exit(f"font {f} not found")
+        else:
+            sys.exit("only -f or -font is supported")
+    else:
+        f = random.choice(font_list)
 
-        while True:
-            try:
-                input_string = input("Input: ")
-                figlet = Figlet()
-                fontlist = figlet.getFonts()
-                if f in fontlist:
-                    figlet.setFont(font=f)
-                    print(figlet.renderText(input_string))
-                    break
+    input_string = input("Input: ")
+    figlet.setFont(font=f)
+    print(figlet.renderText(input_string))
 
-            except EOFError:
-                break
 
 main()
