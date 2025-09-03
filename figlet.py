@@ -3,20 +3,22 @@ import sys
 
 def main():
 
-    #get the font from the command line arg
+    # get the font from the command line arg
     if len(sys.argv) == 2:
-        print(f"font={sys.argv[1]}")
+        f=sys.argv[1]
+        print(f"font={f}")
 
-    while True:
-        try:
-            f = input("Input: ")
-            figlet = Figlet()
-            fontlist = figlet.getFonts()
-            if f in fontlist:
-                figlet.setFont(font='slant')
-            print(figlet.renderText('test'))
-            break
-        except TimeoutError:
-            break
+        while True:
+            try:
+                input_string = input("Input: ")
+                figlet = Figlet()
+                fontlist = figlet.getFonts()
+                if f in fontlist:
+                    figlet.setFont(font=f)
+                    print(figlet.renderText(input_string))
+                    break
+
+            except EOFError:
+                break
 
 main()
